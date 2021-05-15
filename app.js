@@ -4,6 +4,16 @@ const server = http.createServer(rqListener);
 function rqListener(req, res) {
   console.log(req.url, req.method, req.headers);
   //   process.exit();
+  const url = req.url;
+  if (url == `/`) {
+    res.write(`<html>`);
+    res.write(`<head><title>MyEnter Message</title><head>`);
+    res.write(
+      `<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>`
+    );
+    res.write(`</html>`);
+    return res.end();
+  }
   res.setHeader(`Content-Type`, `text/html`);
   res.write(`<html>`);
   res.write(`<head><title>My First Page</title><head>`);
