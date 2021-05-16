@@ -11,4 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(adminRoutes);
 app.use(shopRoutes);
 
+app.use((req, res, next) => {
+  res.status(404).send(`<html><h1>Page NOT Fround</h1></html>`);
+});
+
 app.listen(3000);
