@@ -10,7 +10,7 @@ router.get(`/users`, (req, res, next) => {
   for (const username of usernames) {
     result += username + `\n`;
   }
-  res.send(`${result}`);
+  res.render(`users`, { username: result });
 });
 
 module.exports = router;

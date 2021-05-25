@@ -7,6 +7,8 @@ const app = express();
 const homeData = require(`./routes/home`);
 const usersRoutes = require(`./routes/users`);
 
+app.set(`view engine`, `pug`);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, `public`)));
 app.use(usersRoutes);

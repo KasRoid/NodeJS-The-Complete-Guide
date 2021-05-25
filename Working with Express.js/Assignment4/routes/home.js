@@ -7,7 +7,7 @@ const router = express.Router();
 const usernames = [];
 
 router.get(`/`, (req, res, next) => {
-  res.sendFile(path.join(__dirname, `..`, `views`, `home.html`));
+  res.render(`home`);
 });
 
 router.post(`/`, (req, res, next) => {
