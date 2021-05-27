@@ -22,7 +22,9 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const productID = req.params.productID;
-  console.log(productID);
+  Product.findByID(productID, (product) => {
+    console.log(product);
+  });
   res.redirect(`/`);
 };
 
