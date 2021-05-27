@@ -1,1 +1,9 @@
-[{"title":"Book","imageUrl":"https://the-watch-book.com/142-large_default/-french-millennium-watch-book.jpg","description":"This is an awesome book!","price":"19.99"}]
+[
+  {
+    "id": "23451",
+    "title": "Book",
+    "imageUrl": "https://the-watch-book.com/142-large_default/-french-millennium-watch-book.jpg",
+    "description": "This is an awesome book!",
+    "price": "19.99"
+  }
+]
