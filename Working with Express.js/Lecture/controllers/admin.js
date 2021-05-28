@@ -1,5 +1,15 @@
 const Product = require(`../models/product`);
 
+exports.getProducts = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render(`admin/products`, {
+      path: `/admin/products`,
+      prods: products,
+      pageTitle: `Admin Products`,
+    });
+  });
+};
+
 exports.getAddProduct = (req, res, next) => {
   res.render(`admin/edit-product`, {
     path: `/admin/add-product`,
@@ -52,12 +62,7 @@ exports.postEditProduct = (req, res, next) => {
   res.redirect(`/admin/products`);
 };
 
-exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render(`admin/products`, {
-      path: `/admin/products`,
-      prods: products,
-      pageTitle: `Admin Products`,
-    });
-  });
+exports.postDeleteProduct = (req, res, next) => {
+  console.log(req.body.productID);
+  res.redirect(`/admin/prodcuts`);
 };
