@@ -7,13 +7,19 @@ const filePath = path.join(
   `products.json`
 );
 
-const getProductsFromFile = (callback) => {
+const readProductsFromFile = (callback) => {
   fs.readFile(filePath, (err, fileContent) => {
     if (err) {
       callback([]);
     } else {
       callback(JSON.parse(fileContent));
     }
+  });
+};
+
+const writeProdcutsToFile = (products) => {
+  fs.writeFile(filePath, JSON.stringify(products), (err) => {
+    console.log(err);
   });
 };
 
@@ -27,26 +33,35 @@ module.exports = class Product {
   }
 
   save() {
-    getProductsFromFile((products) => {
+    readProductsFromFile((products) => {
       if (this.id) {
-        console.log(`ID Exists`);
         const existingProductIndex = products.findIndex(
           (product) => product.id === this.id
         );
+        console.log(`ID Exists ${existingProductIndex}`);
         products[existingProductIndex] = this;
       } else {
-        console.log(`New ID Created`);
-        this.id = Math.random().toString;
+        this.id = Math.random().toString();
+        console.log(`New ID Created ${this.id}`);
         products.push(this);
       }
-      fs.writeFile(filePath, JSON.stringify(products), (err) => {
-        console.log(err);
-      });
+      writeProdcutsToFile(products);
+    });
+  }
+
+  static delete(id) {
+    console.log(`Delete ${id}`);
+    readProductsFromFile((products) => {
+      const existingProductIndex = products.findIndex(
+        (product) => product.id === id
+      );
+      products.splice(existingProductIndex, 1);
+      writeProdcutsToFile(products);
     });
   }
 
   static fetchAll(callback) {
-    getProductsFromFile(callback);
+    readProductsFromFile(callback);
   }
 
   static findByID(id, callback) {
