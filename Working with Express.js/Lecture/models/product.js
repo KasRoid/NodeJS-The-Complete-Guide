@@ -1,6 +1,8 @@
 const fs = require(`fs`);
 const path = require(`path`);
 
+const Cart = require(`./cart`);
+
 const filePath = path.join(
   path.dirname(require.main.filename),
   `data`,
@@ -12,14 +14,20 @@ const readProductsFromFile = (callback) => {
     if (err) {
       callback([]);
     } else {
-      callback(JSON.parse(fileContent));
+      try {
+        const data = JSON.parse(fileContent);
+        callback(data);
+      } catch {
+        callback([]);
+      }
     }
   });
 };
 
-const writeProdcutsToFile = (products) => {
+const writeProdcutsToFile = (products, callback) => {
   fs.writeFile(filePath, JSON.stringify(products), (err) => {
     console.log(err);
+    if (callback) callback();
   });
 };
 
@@ -49,14 +57,13 @@ module.exports = class Product {
     });
   }
 
-  static delete(id) {
-    console.log(`Delete ${id}`);
+  static delete(id, callback) {
     readProductsFromFile((products) => {
-      const existingProductIndex = products.findIndex(
-        (product) => product.id === id
-      );
-      products.splice(existingProductIndex, 1);
-      writeProdcutsToFile(products);
+      const product = products.find((product) => product.id === id);
+      const updatedProducts = products.filter((product) => product.id !== id);
+      Cart.deleteProduct(id, product.price, () => {
+        writeProdcutsToFile(updatedProducts, callback);
+      });
     });
   }
 

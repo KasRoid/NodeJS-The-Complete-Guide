@@ -1,8 +1,6 @@
 const fs = require(`fs`);
 const path = require(`path`);
 
-const Product = require(`./product`);
-
 const filePath = path.join(
   path.dirname(require.main.filename),
   `data`,
@@ -60,23 +58,45 @@ module.exports = class Cart {
    */
   static removeProduct(id, callback) {
     fs.readFile(filePath, (error, fileContent) => {
-      if (error) {
-        return;
-      } else {
-        let cart = JSON.parse(fileContent);
-        const existingProductIndex = cart.products.findIndex(
-          (product) => product.id === id
-        );
-        Product.findByID(id, (product) => {
-          const price = product.price;
-          const qty = cart.products[existingProductIndex].qty;
-          const totalPrice = cart.totalPrice - price * qty;
-          cart.products.splice(existingProductIndex, 1);
-          cart.totalPrice = totalPrice;
-          fs.writeFile(filePath, JSON.stringify(cart), () => {
-            callback();
-          });
+      if (error) return;
+      let cart = JSON.parse(fileContent);
+      const existingProductIndex = cart.products.findIndex(
+        (product) => product.id === id
+      );
+      Product.findByID(id, (product) => {
+        const price = product.price;
+        const qty = cart.products[existingProductIndex].qty;
+        const totalPrice = cart.totalPrice - price * qty;
+        cart.products.splice(existingProductIndex, 1);
+        cart.totalPrice = totalPrice;
+        fs.writeFile(filePath, JSON.stringify(cart), () => {
+          callback();
         });
+      });
+    });
+  }
+
+  /**
+   * Remove a product in cart
+   *
+   * @param {String} id - Product ID
+   * @param {()} callback - Completion Handler
+   */
+  static deleteProduct(id, price, callback) {
+    fs.readFile(filePath, (error, fileContent) => {
+      if (error) {
+        callback();
+        return;
+      }
+      let cart = JSON.parse(fileContent);
+      const product = cart.products.find((product) => product.id === id);
+      if (product) {
+        const quantity = product.qty;
+        cart.totalPrice -= price * quantity;
+        cart.products = cart.products.filter((product) => product.id !== id);
+        fs.writeFile(filePath, JSON.stringify(cart), callback);
+      } else {
+        callback();
       }
     });
   }
