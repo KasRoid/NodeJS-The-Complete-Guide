@@ -64,8 +64,14 @@ module.exports = class Product {
     readProductsFromFile(callback);
   }
 
+  /**
+   * Find a product by its ID.
+   *
+   * @param {String} id The ID of the product
+   * @param {(product: Product) => void} callback Product Available
+   */
   static findByID(id, callback) {
-    getProductsFromFile((products) => {
+    readProductsFromFile((products) => {
       const product = products.find((product) => product.id === id);
       callback(product);
     });

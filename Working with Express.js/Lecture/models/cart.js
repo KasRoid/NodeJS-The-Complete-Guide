@@ -1,6 +1,8 @@
 const fs = require(`fs`);
 const path = require(`path`);
 
+const Product = require(`./product`);
+
 const filePath = path.join(
   path.dirname(require.main.filename),
   `data`,
@@ -11,6 +13,16 @@ module.exports = class Cart {
   constructor() {
     this.products = [];
     this.totalPrice = 0;
+  }
+
+  static fetchAll(callback) {
+    fs.readFile(filePath, (err, fileContent) => {
+      if (err) {
+        callback([]);
+      } else {
+        callback(JSON.parse(fileContent));
+      }
+    });
   }
 
   static addProduct(id, productPrice) {
@@ -37,6 +49,35 @@ module.exports = class Cart {
       fs.writeFile(filePath, JSON.stringify(cart), (err) => {
         console.log(err);
       });
+    });
+  }
+
+  /**
+   * Remove a product in cart
+   *
+   * @param {String} id - Product ID
+   * @param {()} callback - Completion Handler
+   */
+  static removeProduct(id, callback) {
+    fs.readFile(filePath, (error, fileContent) => {
+      if (error) {
+        return;
+      } else {
+        let cart = JSON.parse(fileContent);
+        const existingProductIndex = cart.products.findIndex(
+          (product) => product.id === id
+        );
+        Product.findByID(id, (product) => {
+          const price = product.price;
+          const qty = cart.products[existingProductIndex].qty;
+          const totalPrice = cart.totalPrice - price * qty;
+          cart.products.splice(existingProductIndex, 1);
+          cart.totalPrice = totalPrice;
+          fs.writeFile(filePath, JSON.stringify(cart), () => {
+            callback();
+          });
+        });
+      }
     });
   }
 };
