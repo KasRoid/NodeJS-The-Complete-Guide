@@ -27,13 +27,16 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const productID = req.params.productID;
-  Product.findByID(productID, (product) => {
-    res.render(`shop/product-detail`, {
-      path: `/products`,
-      pageTitle: product.title,
-      product: product,
-    });
-  });
+  Product.findByID(productID)
+    .then(([rows]) => {
+      const product = rows[0];
+      res.render(`shop/product-detail`, {
+        path: `/products`,
+        pageTitle: product.title,
+        product: product,
+      });
+    })
+    .catch((error) => console.log(error));
 };
 
 exports.getCart = (req, res, next) => {
