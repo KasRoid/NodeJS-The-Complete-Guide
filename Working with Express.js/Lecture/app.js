@@ -13,10 +13,10 @@ const shopRoutes = require(`./routes/shop`);
 
 db.execute(`SELECT * FROM products`)
   .then((result) => {
-    console.log(result[0], result[1]);
+    // console.log(result[0], result[1]);
   })
   .catch((error) => {
-    console.log(error);
+    // console.log(error);
   });
 
 const errorController = require(`./controllers/error`);
