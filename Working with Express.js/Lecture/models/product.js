@@ -11,7 +11,12 @@ module.exports = class Product {
     this.price = price;
   }
 
-  save() {}
+  save() {
+    return db.execute(
+      `INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)`,
+      [this.title, this.price, this.imageUrl, this.description]
+    );
+  }
 
   static delete(id) {}
 
@@ -23,7 +28,6 @@ module.exports = class Product {
    * Find a product by its ID.
    *
    * @param {String} id The ID of the product
-   * @param {(product: Product) => void} callback Product Available
    */
   static findByID(id) {}
 };
