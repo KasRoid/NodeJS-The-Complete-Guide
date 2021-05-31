@@ -7,17 +7,9 @@ const app = express();
 app.set(`view engine`, `ejs`);
 app.set(`views`, `views`);
 
-const db = require(`./util/database`);
+const sequelize = require(`./util/database`);
 const adminRoutes = require(`./routes/admin`);
 const shopRoutes = require(`./routes/shop`);
-
-db.execute(`SELECT * FROM products`)
-  .then((result) => {
-    // console.log(result[0], result[1]);
-  })
-  .catch((error) => {
-    // console.log(error);
-  });
 
 const errorController = require(`./controllers/error`);
 
@@ -30,4 +22,12 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+sequelize
+  .sync()
+  .then((result) => {
+    // console.log(result);
+    app.listen(3000);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
