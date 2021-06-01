@@ -31,16 +31,28 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const productID = req.params.productID;
-  Product.findByID(productID)
-    .then(([rows]) => {
-      const product = rows[0];
+  Product.findAll({ where: { id: productID } })
+    .then((products) => {
       res.render(`shop/product-detail`, {
         path: `/products`,
-        pageTitle: product.title,
-        product: product,
+        pageTitle: products[0].title,
+        product: products[0],
       });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+    });
+  // Product.findByPk(productID)
+  //   .then((product) => {
+  //     res.render(`shop/product-detail`, {
+  //       path: `/products`,
+  //       pageTitle: product.title,
+  //       product: product,
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 };
 
 exports.getCart = (req, res, next) => {
