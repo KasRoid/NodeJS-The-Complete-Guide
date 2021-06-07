@@ -68,6 +68,7 @@ exports.postEditProduct = (req, res, next) => {
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDescription = req.body.description;
+
   Product.findByPk(productID)
     .then((product) => {
       product.title = updatedTitle;
