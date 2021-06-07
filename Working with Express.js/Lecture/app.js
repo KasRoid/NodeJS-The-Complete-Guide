@@ -8,6 +8,9 @@ app.set(`view engine`, `ejs`);
 app.set(`views`, `views`);
 
 const sequelize = require(`./util/database`);
+
+const Product = require(`./models/product`);
+const User = require(`./models/user`);
 const adminRoutes = require(`./routes/admin`);
 const shopRoutes = require(`./routes/shop`);
 
@@ -22,8 +25,11 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+Product.belongsTo(User, { constraints: true, onDelete: `CASCADE` });
+User.hasMany(Product);
+
 sequelize
-  .sync()
+  .sync({ force: true })
   .then((result) => {
     app.listen(3000);
   })
