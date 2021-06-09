@@ -56,29 +56,25 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  Cart.fetchAll((items) => {
-    let products = [];
-    if (items.products && items.products.length > 0) {
-      for (const [index, item] of items.products.entries()) {
-        Product.findByID(item.id, (product) => {
-          products.push(product);
-          if (index === items.products.length - 1) {
-            res.render(`shop/cart`, {
-              path: `/cart`,
-              pageTitle: `Your Cart`,
-              products: products,
-            });
-          }
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart
+        .getProducts()
+        .then((products) => {
+          res.render(`shop/cart`, {
+            path: `/cart`,
+            pageTitle: `Your Cart`,
+            products: products,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      }
-    } else {
-      res.render(`shop/cart`, {
-        path: `/cart`,
-        pageTitle: `Your Cart`,
-        products: products,
-      });
-    }
-  });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.postCart = (req, res, next) => {
