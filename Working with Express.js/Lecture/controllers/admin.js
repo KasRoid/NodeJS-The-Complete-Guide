@@ -1,6 +1,7 @@
 const Product = require(`../models/product`);
 
 exports.getProducts = (req, res, next) => {
+  console.log(`Admin`);
   req.user
     .getProducts()
     .then((products) => {

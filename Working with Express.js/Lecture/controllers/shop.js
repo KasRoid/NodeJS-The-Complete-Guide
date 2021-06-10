@@ -16,6 +16,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
+  console.log(`Shop111`);
   Product.findAll()
     .then((products) => {
       res.render(`shop/product-list`, {
@@ -79,10 +80,37 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   const productID = req.body.productID;
-  Product.findByID(productID, (product) => {
-    Cart.addProduct(productID, product.price);
-  });
-  res.redirect(`/cart`);
+  let fetchedCart;
+  let newQuantity = 1;
+  req.user
+    .getCart()
+    .then((cart) => {
+      fetchedCart = cart;
+      return cart.getProducts({ where: { id: productID } });
+    })
+    .then((products) => {
+      let product;
+      if (products.length > 0) {
+        product = products[0];
+      }
+      if (product) {
+        const oldQuantity = product.cartItem.quantity;
+        newQuantity = oldQuantity + 1;
+        return product;
+      }
+      return Product.findByPk(productID);
+    })
+    .then((product) => {
+      return fetchedCart.addProduct(product, {
+        through: { quantity: newQuantity },
+      });
+    })
+    .then(() => {
+      res.redirect(`/cart`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.getOrders = (req, res, next) => {

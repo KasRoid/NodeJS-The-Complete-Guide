@@ -19,7 +19,7 @@ const shopRoutes = require(`./routes/shop`);
 const errorController = require(`./controllers/error`);
 
 const bodyParser = require(`body-parser`);
-const { use } = require("./routes/shop");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, `public`)));
 
