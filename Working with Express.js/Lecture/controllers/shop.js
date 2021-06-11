@@ -16,7 +16,6 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  console.log(`Shop111`);
   Product.findAll()
     .then((products) => {
       res.render(`shop/product-list`, {
@@ -106,6 +105,25 @@ exports.postCart = (req, res, next) => {
       });
     })
     .then(() => {
+      res.redirect(`/cart`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+exports.postCartDeleteProduct = (req, res, next) => {
+  const productId = req.body.productId;
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts({ where: { id: productId } });
+    })
+    .then((products) => {
+      const product = products[0];
+      product.cartItem.destroy();
+    })
+    .then((result) => {
       res.redirect(`/cart`);
     })
     .catch((error) => {
