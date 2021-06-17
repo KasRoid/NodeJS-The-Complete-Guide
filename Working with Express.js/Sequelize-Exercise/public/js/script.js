@@ -1,1 +1,27 @@
-console.log(`JS Loaded`);
+const makeCardList = () => {
+  const names = [`Kas Song`, `Michael`];
+  const jobs = [`iOS Developer`, `Engineer`];
+
+  names.forEach(function (name, index) {
+    const img = document.createElement(`img`);
+    img.src = `https://www.vhv.rs/dpng/d/544-5445462_people-icons-png-flat-person-icon-png-transparent.png`;
+    img.alt = `Avatar`;
+    img.style = `width: 10%`;
+    const h4 = document.createElement(`h4`);
+    const b = document.createElement(`b`);
+    const p = document.createElement(`p`);
+    const cardDiv = document.createElement(`div`);
+    const infoDiv = document.createElement(`div`);
+    cardDiv.className = `card${index}`;
+    b.innerHTML += name;
+    p.innerHTML += jobs[index];
+    h4.appendChild(b);
+    infoDiv.appendChild(h4);
+    infoDiv.appendChild(p);
+    cardDiv.appendChild(img);
+    cardDiv.appendChild(infoDiv);
+    document.getElementById(`cards`).appendChild(cardDiv);
+  });
+};
+
+makeCardList();
