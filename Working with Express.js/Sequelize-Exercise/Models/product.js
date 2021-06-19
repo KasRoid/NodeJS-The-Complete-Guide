@@ -1,3 +1,4 @@
+const path = require(`path`);
 const fs = require(`fs`);
 
 let products = [];
@@ -9,6 +10,11 @@ const filePath = path.join(
 );
 
 module.exports = class Product {
+  constructor(title, description) {
+    this.title = title;
+    this.description = description;
+  }
+
   static fetchAll(callback) {
     fs.readFile(filePath, (error, data) => {
       if (!error) {
@@ -19,11 +25,12 @@ module.exports = class Product {
     });
   }
 
-  static post(product) {
+  save() {
     fs.readFile(filePath, (error, data) => {
       if (!error) {
         products = JSON.parse(data);
       }
+      products.push(this);
       fs.writeFile(filePath, JSON.stringify(products), (error) => {
         console.log(error);
       });
