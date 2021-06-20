@@ -13,7 +13,8 @@ router.get(`/`, (req, res, next) => {
 router.post(`/`, (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
-  const product = new Product(title, description);
+  const imageURL = req.body.imageURL;
+  const product = new Product(title, description, imageURL);
   product.save();
   res.redirect(`/`);
 });

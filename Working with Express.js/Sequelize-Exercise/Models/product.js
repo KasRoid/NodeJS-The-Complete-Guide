@@ -10,9 +10,10 @@ const filePath = path.join(
 );
 
 module.exports = class Product {
-  constructor(title, description) {
+  constructor(title, description, imageURL) {
     this.title = title;
     this.description = description;
+    this.imageURL = imageURL;
   }
 
   static fetchAll(callback) {
