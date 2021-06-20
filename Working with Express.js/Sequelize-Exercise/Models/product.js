@@ -5,6 +5,7 @@ let products = [];
 
 const filePath = path.join(
   path.dirname(require.main.filename),
+  `public`,
   `data`,
   `products.json`
 );
