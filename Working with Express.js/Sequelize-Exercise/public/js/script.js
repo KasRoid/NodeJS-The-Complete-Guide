@@ -14,6 +14,9 @@ const makeCardList = () => {
       b.id = `title`;
       const p = document.createElement(`p`);
       p.id = `description`;
+      const cartButton = document.createElement(`button`);
+      cartButton.className = `button`;
+      cartButton.innerHTML = `Add to Cart`;
       const cardDiv = document.createElement(`div`);
       const infoDiv = document.createElement(`div`);
       infoDiv.className = `info`;
@@ -25,6 +28,7 @@ const makeCardList = () => {
       infoDiv.appendChild(p);
       cardDiv.appendChild(img);
       cardDiv.appendChild(infoDiv);
+      cardDiv.appendChild(cartButton);
       document.getElementById(`cards`).appendChild(cardDiv);
     });
   });
