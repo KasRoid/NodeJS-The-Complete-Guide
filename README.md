@@ -29,6 +29,7 @@ Date: May 15, 2021 - TBD
 - Express.js
 - EJS, Handlebars, Pug
 - SQL
+- Sequelize
 
 ---
 
