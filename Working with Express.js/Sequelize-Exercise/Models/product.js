@@ -11,7 +11,8 @@ const filePath = path.join(
 );
 
 module.exports = class Product {
-  constructor(title, description, imageURL) {
+  constructor(id, title, description, imageURL) {
+    this.id = id;
     this.title = title;
     this.description = description;
     this.imageURL = imageURL;
@@ -19,7 +20,7 @@ module.exports = class Product {
 
   static fetchAll(callback) {
     fs.readFile(filePath, (error, data) => {
-      if (!error) {
+      if (error) {
         callback([]);
       } else {
         callback(JSON.parse(data));
