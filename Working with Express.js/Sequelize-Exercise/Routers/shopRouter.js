@@ -2,6 +2,8 @@ const path = require(`path`);
 
 const express = require(`express`);
 
+const Cart = require(`../Models/cart`);
+
 const router = express.Router();
 
 router.get(`/`, (req, res, next) => {
@@ -13,8 +15,10 @@ router.get(`/cart`, (req, res, next) => {
 });
 
 router.post("/cart", (req, res, next) => {
-  const body = req.body;
-  console.log(body);
+  const productID = req.body.productID;
+  const cart = new Cart(productID);
+  cart.save();
+  res.redirect(`/cart`);
 });
 
 module.exports = router;

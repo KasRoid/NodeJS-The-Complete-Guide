@@ -29,10 +29,19 @@ module.exports = class Cart {
 
   save() {
     fs.readFile(filePath, (error, data) => {
+      let itemAlreadyExists = false;
       if (!error) {
         cart = JSON.parse(data);
+        if (cart.length > 0) {
+          for (const item of cart) {
+            if (item.id === this.id) {
+              item.quantity += 1;
+              itemAlreadyExists = true;
+            }
+          }
+        }
       }
-      cart.push(this);
+      if (!itemAlreadyExists) cart.push(this);
       fs.writeFile(filePath, JSON.stringify(cart), (error) => {
         console.log(error);
       });
