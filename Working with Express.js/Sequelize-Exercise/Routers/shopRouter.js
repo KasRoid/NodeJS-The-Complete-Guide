@@ -21,4 +21,9 @@ router.post("/cart", (req, res, next) => {
   res.redirect(`/cart`);
 });
 
+router.post(`/delete`, (req, res, next) => {
+  console.log(req.body.productID);
+  res.redirect(`/cart`);
+});
+
 module.exports = router;
