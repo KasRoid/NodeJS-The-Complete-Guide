@@ -21,9 +21,11 @@ const makeCardList = () => {
           infoDiv.appendChild(boldTitle);
           const title = document.createElement(`b`);
           title.innerHTML = product.title;
+          title.id = `title`;
           boldTitle.appendChild(title);
           const quantity = document.createElement(`p`);
           quantity.innerHTML = item.quantity;
+          quantity.id = `quantity`;
           infoDiv.appendChild(quantity);
           const removeForm = document.createElement(`form`);
           removeForm.action = `/delete`;
@@ -31,6 +33,7 @@ const makeCardList = () => {
           cardDiv.appendChild(removeForm);
           const removeButton = document.createElement(`button`);
           removeButton.className = `button`;
+          removeButton.id = `removeButton`;
           removeButton.innerHTML = `Remove Item`;
           removeButton.type = `submit`;
           removeForm.appendChild(removeButton);

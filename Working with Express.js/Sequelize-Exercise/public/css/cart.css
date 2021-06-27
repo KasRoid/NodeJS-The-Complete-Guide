@@ -3,9 +3,13 @@
   padding-left: 1rem;
 }
 
-#description {
+#quantity {
   padding-left: 1rem;
   padding-bottom: 1rem;
+}
+
+#removeButton {
+  padding-left: 1rem;
 }
 
 .card {
