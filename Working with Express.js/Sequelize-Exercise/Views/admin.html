@@ -10,9 +10,9 @@
   </head>
   <body>
     <div class="topnav">
-      <a class="active" href="/">Home</a>
+      <a href="/">Home</a>
       <a href="/cart">Cart</a>
-      <a href="/admin">Admin</a>
+      <a class="active" href="/admin">Admin</a>
     </div>
     <form action="/admin" method="POST">
       <div class="titleDiv">
@@ -28,6 +28,7 @@
         <input type="text" id="image" name="imageURL" />
       </div>
       <input type="submit" id="product" />
+      <a href="/admin/edit" class="button">Edit</a>
     </form>
   </body>
 </html>

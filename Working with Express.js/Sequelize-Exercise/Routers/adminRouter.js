@@ -17,6 +17,10 @@ router.get(`/`, (req, res, next) => {
   res.sendFile(path.join(__dirname, `..`, `views`, `admin.html`));
 });
 
+router.get(`/edit`, (req, res, netx) => {
+  res.sendFile(path.join(__dirname, `..`, `views`, `admin-edit.html`));
+});
+
 router.post(`/`, (req, res, next) => {
   createProductId((id) => {
     const title = req.body.title;
@@ -26,6 +30,11 @@ router.post(`/`, (req, res, next) => {
     product.save();
     res.redirect(`/`);
   });
+});
+
+router.post(`/delete`, (req, res, next) => {
+  console.log(req.body.productID);
+  res.redirect(`/admin/edit`);
 });
 
 module.exports = router;
