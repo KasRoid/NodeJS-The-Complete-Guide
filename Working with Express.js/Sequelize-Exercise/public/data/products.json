@@ -1,15 +1,1 @@
-[
-  {
-    "id": 1,
-    "title": "Jewel",
-    "description": "Expensive",
-    "imageURL": "https://png.pngtree.com/element_our/20190531/ourmid/pngtree-vector-cartoon-deduction-jewel-image_1320967.jpg"
-  },
-  {
-    "id": 2,
-    "title": "The Book",
-    "description": "Read It!!",
-    "imageURL": "https://pngimg.com/uploads/book/book_PNG51092.png"
-  },
-  { "id": 3, "title": "abcd", "description": "ba", "imageURL": "" }
-]
+[{"id":1,"title":"Jewel","description":"Expensive","imageURL":"https://png.pngtree.com/element_our/20190531/ourmid/pngtree-vector-cartoon-deduction-jewel-image_1320967.jpg"},{"id":2,"title":"The Book","description":"Read It!!","imageURL":"https://pngimg.com/uploads/book/book_PNG51092.png"}]

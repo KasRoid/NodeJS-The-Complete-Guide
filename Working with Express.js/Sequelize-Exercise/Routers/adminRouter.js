@@ -33,7 +33,8 @@ router.post(`/`, (req, res, next) => {
 });
 
 router.post(`/delete`, (req, res, next) => {
-  console.log(req.body.productID);
+  const id = req.body.productID;
+  Product.delete(id);
   res.redirect(`/admin/edit`);
 });
 
