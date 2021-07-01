@@ -30,4 +30,8 @@ router.post(`/delete`, (req, res, next) => {
   res.redirect(`/admin/edit`);
 });
 
+router.post(`/edit/item`, (req, res, next) => {
+  res.sendFile(path.join(__dirname, `..`, `views`, `admin-edit-item.html`));
+});
+
 module.exports = router;
