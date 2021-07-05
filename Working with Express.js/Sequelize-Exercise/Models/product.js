@@ -28,6 +28,23 @@ module.exports = class Product {
     });
   }
 
+  static fetch(id, callback) {
+    fs.readFile(filePath, (error, data) => {
+      if (error) {
+        console.log(error);
+      } else {
+        const productList = JSON.parse(data);
+        for (product of productList) {
+          if (product.id === id) {
+            callback(product);
+          } else {
+            console.log(`No Such Product`);
+          }
+        }
+      }
+    });
+  }
+
   static delete(id, callback) {
     fs.readFile(filePath, (error, data) => {
       if (error) {

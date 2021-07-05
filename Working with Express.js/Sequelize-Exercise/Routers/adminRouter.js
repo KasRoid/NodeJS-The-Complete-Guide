@@ -31,6 +31,7 @@ router.post(`/delete`, (req, res, next) => {
 });
 
 router.post(`/edit/item`, (req, res, next) => {
+  const id = req.body.productID;
   res.sendFile(path.join(__dirname, `..`, `views`, `admin-edit-item.html`));
 });
 
