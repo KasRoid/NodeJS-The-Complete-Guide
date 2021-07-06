@@ -6,6 +6,7 @@ const router = express.Router();
 
 const Product = require(`../models/product`);
 
+// GET
 router.get(`/`, (req, res, next) => {
   res.sendFile(path.join(__dirname, `..`, `views`, `admin.html`));
 });
@@ -14,6 +15,7 @@ router.get(`/edit`, (req, res, netx) => {
   res.sendFile(path.join(__dirname, `..`, `views`, `admin-edit.html`));
 });
 
+// POST
 router.post(`/`, (req, res, next) => {
   const id = Math.random();
   const title = req.body.title;
